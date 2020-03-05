@@ -19,8 +19,8 @@ public class SQLTemplate<T extends BaseEntity> {
     private static final String PRIMARY_KEY = "id";
 
     public String selectAll(Map<String, Object> params) {
-        T entity = (T) params.get("entity");
-        return String.format("select * from %s", tableName(entity));
+        String tableName = (String) params.get("tableName");
+        return String.format("select * from %s", tableName);
     }
 
     private String tableName(T model) {

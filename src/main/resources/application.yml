@@ -11,4 +11,11 @@ spring:
 
 mybatis:
   mapper-locations: mapper
-  type-aliases-package: com.springboot.demo.entity
+  type-aliases-package: com.springboot.demo.entity,com.springboot.demo.entity.*
+
+logging:
+  level:
+    com:
+      springboot:
+        demo:
+          mapper: debug

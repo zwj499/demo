@@ -39,18 +39,80 @@ public class BaseController<T extends BaseEntity, M extends BaseMapper<T>, S ext
 
     protected ApiBaseResponse<T> selectById(Integer id) {
         try {
-            T entity = service.selectById(id);
-            return setResponseSuccess(entity);
+            T result = service.selectById(id);
+            return setResponseSuccess(result);
         } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<List<T>> selectBatchIds(List<Integer> ids) {
+        try {
+            List<T> result = service.selectBatchIds(ids);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
             return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
         }
     }
 
     protected ApiBaseResponse<List<T>> selectAll(String tableName) {
         try {
-            List<T> list = service.selectAll(tableName);
-            return setResponseSuccess(list);
+            List<T> result = service.selectAll(tableName);
+            return setResponseSuccess(result);
         } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<Integer> insert(T entity) {
+        try {
+            int result = service.insert(entity);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<Integer> updateById(T entity) {
+        try {
+            int result = service.updateById(entity);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<Integer> deleteById(Integer id) {
+        try {
+            int result = service.deleteById(id);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<Integer> deleteBatchIds(List<Integer> ids) {
+        try {
+            int result = service.deleteBatchIds(ids);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        }
+    }
+
+    protected ApiBaseResponse<T> selectByName(String name) {
+        try {
+            T result = service.selectByName(name);
+            return setResponseSuccess(result);
+        } catch (ServiceException e) {
+            logger.error(e.getMessage(), e);
             return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
         }
     }
