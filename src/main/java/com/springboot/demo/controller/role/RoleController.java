@@ -1,18 +1,18 @@
 package com.springboot.demo.controller.role;
 
 import com.springboot.demo.common.base.ApiBaseResponse;
-import com.springboot.demo.common.base.BaseController;
+import com.springboot.demo.common.base.AbstractController;
 import com.springboot.demo.controller.role.request.CreateRoleRequest;
 import com.springboot.demo.controller.role.request.UpdateRoleRequest;
 import com.springboot.demo.entity.Role;
 import com.springboot.demo.mapper.RoleMapper;
 import com.springboot.demo.service.RoleService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/role")
-public class RoleController extends BaseController<Role, RoleMapper, RoleService> {
+public class RoleController extends AbstractController<Role, RoleMapper, RoleService> {
 
     @GetMapping("/{id}")
     public ApiBaseResponse<Role> selectById(@PathVariable ("id") Integer id) {

@@ -1,13 +1,24 @@
 server:
   port: 8888
 
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/demo?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 6000
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 1
+        max-wait: -1
+
 
 mybatis:
   mapper-locations: mapper
@@ -19,3 +30,6 @@ logging:
       springboot:
         demo:
           mapper: debug
+
+shiro:
+  enabled: false
