@@ -8,6 +8,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisManager;
@@ -23,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ReflectionUtils;
 import redis.clients.jedis.JedisPool;
 
+import javax.servlet.Filter;
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -67,16 +69,16 @@ public class ShiroConfig {
         return redisManager;
     }
 
-//    @Bean
-//    public RedisSessionDAO redisSessionDAO(RedisManager redisManager) {
-//        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
-//        redisSessionDAO.setRedisManager(redisManager);
-//        redisSessionDAO.setKeyPrefix(RedisConstant.KEY_PREFIX_SHIRO_SESSION);
-//        redisSessionDAO.setExpire(3600 * 24);
-////        redisSessionDAO.setKeySerializer();
-////        redisSessionDAO.setSessionInMemoryTimeout();
-//        return redisSessionDAO;
-//    }
+    @Bean
+    public RedisSessionDAO redisSessionDAO(RedisManager redisManager) {
+        RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
+        redisSessionDAO.setRedisManager(redisManager);
+        redisSessionDAO.setKeyPrefix(RedisConstant.KEY_PREFIX_SHIRO_SESSION);
+        redisSessionDAO.setExpire(3600 * 24);
+//        redisSessionDAO.setKeySerializer();
+//        redisSessionDAO.setSessionInMemoryTimeout();
+        return redisSessionDAO;
+    }
 
     @Bean
     public ShiroRedisSessionDao shiroRedisSessionDao(RedisTemplate redisTemplate) {
@@ -88,9 +90,9 @@ public class ShiroConfig {
     }
 
     @Bean
-    public SessionManager sessionManager(ShiroRedisSessionDao shiroRedisSessionDao) {
+    public SessionManager sessionManager(RedisSessionDAO redisSessionDAO) {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setSessionDAO(shiroRedisSessionDao);
+        sessionManager.setSessionDAO(redisSessionDAO);
         sessionManager.getSessionIdCookie().setName("demo_sessionId");
         return sessionManager;
     }
@@ -113,10 +115,22 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean getAbstractShiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean factory = new ShiroFilterFactoryBean();
         factory.setSecurityManager(securityManager);
+
+        factory.setUnauthorizedUrl("/unLogin");
+
+        Map<String, Filter> filterMap = new LinkedHashMap<>();
+        PermissionsAuthorizationFilter permissionsAuthorizationFilter = new PermissionsAuthorizationFilter();
+        permissionsAuthorizationFilter.setUnauthorizedUrl("/error");
+
+        filterMap.put("permissionsAuthorizationFilter", permissionsAuthorizationFilter);
+
+        factory.setFilters(filterMap);
+
         Map<String, String> filter = new LinkedHashMap<String, String>();
         filter.put("/", "anon");
         filter.put("/login", "anon");
         filter.put("/**", "authc");
+
 
         factory.setFilterChainDefinitionMap(filter);
         return factory;

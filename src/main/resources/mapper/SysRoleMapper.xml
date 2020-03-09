@@ -6,4 +6,11 @@
     <resultMap id="BaseResultMap" type="com.springboot.demo.entity.sys.SysRole">
         <result column="name" property="name"/>
     </resultMap>
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select r.id, r.name
+        from role r
+        left join user_role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
 </mapper>

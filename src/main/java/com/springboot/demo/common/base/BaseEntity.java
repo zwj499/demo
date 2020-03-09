@@ -1,5 +1,8 @@
 package com.springboot.demo.common.base;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,7 @@ import java.io.Serializable;
  */
 public abstract class BaseEntity implements Serializable {
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     public Integer getId() {

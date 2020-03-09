@@ -1,16 +1,10 @@
 package com.springboot.demo.common.serializer;
 
-import com.springboot.demo.common.utils.JsonUtil;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
-import org.crazycake.shiro.IRedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.crazycake.shiro.SessionInMemory;
-import org.crazycake.shiro.exception.SerializationException;
-import org.crazycake.shiro.serializer.ObjectSerializer;
-import org.crazycake.shiro.serializer.RedisSerializer;
-import org.crazycake.shiro.serializer.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -54,20 +48,19 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
     private void saveSession(Session session) throws UnknownSessionException {
         if (session != null && session.getId() != null) {
             String key;
-            String value;
 
             key = this.getRedisSessionKey(session.getId());
-            value = JsonUtil.toJson(session);
+
 
 
             if (this.expire == -2) {
-                redisTemplate.opsForValue().set(key, value, (int) (session.getTimeout() / 1000L));
+                redisTemplate.opsForValue().set(key, session, (int) (session.getTimeout() / 1000L));
             } else {
                 if (this.expire != -1 && (long) (this.expire * 1000) < session.getTimeout()) {
                     logger.warn("Redis session expire time: " + this.expire * 1000 + " is less than Session timeout: " + session.getTimeout() + " . It may cause some problems.");
                 }
 
-                redisTemplate.opsForValue().set(key, value, this.expire);
+                redisTemplate.opsForValue().set(key, session, this.expire);
             }
         } else {
             logger.error("session or session id is null");
@@ -91,7 +84,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
             Iterator var3 = keys.iterator();
 
             while (var3.hasNext()) {
-                Session s = JsonUtil.fromJson((String) redisTemplate.opsForValue().get(var3.next()), Session.class);
+                Session s = (Session) redisTemplate.opsForValue().get(var3.next());
                 sessions.add(s);
             }
         }
@@ -127,7 +120,7 @@ public class ShiroRedisSessionDao extends AbstractSessionDAO {
             session = null;
             logger.debug("read session from redis");
 
-            session = JsonUtil.fromJson((String) redisTemplate.opsForValue().get(this.getRedisSessionKey(sessionId)), Session.class);
+            session = (Session) redisTemplate.opsForValue().get(this.getRedisSessionKey(sessionId));
             if (this.sessionInMemoryEnabled) {
                 this.setSessionToThreadLocal(sessionId, session);
             }

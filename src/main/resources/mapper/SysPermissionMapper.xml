@@ -7,4 +7,19 @@
         <result column="name" property="name"/>
         <result column="permission" property="permission"/>
     </resultMap>
+
+    <select id="selectByRoleId" resultMap="BaseResultMap">
+        select p.id, p.name, p.permision
+        from sys_permission p
+        left join role_permission rp on p.id = rp.permission_id
+        where ur.role_id = #{role_id}
+    </select>
+
+    <select id="selectByUserId" resultType="java.lang.String">
+        select p.permission
+        from sys_permission p
+        left join role_permission rp on p.id = rp.permission_id
+        left join user_role ur on ur.role_id = rp.role_id
+        where ur.user_id = #{usreId}
+    </select>
 </mapper>

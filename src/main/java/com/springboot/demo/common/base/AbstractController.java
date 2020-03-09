@@ -15,7 +15,7 @@ public class AbstractController<T extends BaseEntity, M extends BaseMapper<T>, S
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    private S service;
+    protected S service;
 
     protected ApiBaseResponse<T> selectById(Integer id) {
         try {
@@ -57,10 +57,13 @@ public class AbstractController<T extends BaseEntity, M extends BaseMapper<T>, S
         }
     }
 
-    protected ApiBaseResponse<Integer> updateById(T entity) {
+    protected ApiBaseResponse<T> updateById(T entity) {
         try {
             int result = service.updateById(entity);
-            return setResponseSuccess(result);
+            if (result != 1) {
+                throw new ServiceException(-1, String.format("更新系统用户数据失败, id: {}", entity.getId()));
+            }
+            return setResponseSuccess(selectById(entity.getId()));
         } catch (ServiceException e) {
             logger.error(e.getMessage(), e);
             return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
