@@ -18,6 +18,9 @@ spring:
         max-idle: 8
         min-idle: 1
         max-wait: -1
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/demo?maxIdleTimeMS=60000
 
 
 mybatis:

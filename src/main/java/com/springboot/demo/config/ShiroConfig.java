@@ -14,8 +14,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,7 +81,7 @@ public class ShiroConfig {
     @Bean
     public ShiroRedisSessionDao shiroRedisSessionDao(RedisTemplate redisTemplate) {
         ShiroRedisSessionDao sessionDao = new ShiroRedisSessionDao();
-        sessionDao.setExpire(3600*24);
+        sessionDao.setExpire(3600 * 24);
         sessionDao.setKeyPrefix(RedisConstant.KEY_PREFIX_SHIRO_SESSION);
         sessionDao.setRedisTemplate(redisTemplate);
         return sessionDao;
@@ -130,7 +128,6 @@ public class ShiroConfig {
         filter.put("/", "anon");
         filter.put("/login", "anon");
         filter.put("/**", "authc");
-
 
         factory.setFilterChainDefinitionMap(filter);
         return factory;
