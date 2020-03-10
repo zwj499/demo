@@ -1,6 +1,5 @@
-package com.springboot.demo.common.base;
+package com.springboot.demo.mapper.base;
 
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
 

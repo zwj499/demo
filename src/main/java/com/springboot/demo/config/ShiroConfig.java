@@ -63,7 +63,7 @@ public class ShiroConfig {
         redisManager.setJedisPool(jedisPool);
         redisManager.setHost("localhost:6379");
         redisManager.setDatabase(RedisConstant.REDIS_DB_SESSION);
-        redisManager.setTimeout(2222);
+        redisManager.setTimeout(3600 * 24);
         return redisManager;
     }
 
@@ -78,14 +78,14 @@ public class ShiroConfig {
         return redisSessionDAO;
     }
 
-    @Bean
-    public ShiroRedisSessionDao shiroRedisSessionDao(RedisTemplate redisTemplate) {
-        ShiroRedisSessionDao sessionDao = new ShiroRedisSessionDao();
-        sessionDao.setExpire(3600 * 24);
-        sessionDao.setKeyPrefix(RedisConstant.KEY_PREFIX_SHIRO_SESSION);
-        sessionDao.setRedisTemplate(redisTemplate);
-        return sessionDao;
-    }
+//    @Bean
+//    public ShiroRedisSessionDao shiroRedisSessionDao(RedisTemplate redisTemplate) {
+//        ShiroRedisSessionDao sessionDao = new ShiroRedisSessionDao();
+//        sessionDao.setExpire(3600 * 24);
+//        sessionDao.setKeyPrefix(RedisConstant.KEY_PREFIX_SHIRO_SESSION);
+//        sessionDao.setRedisTemplate(redisTemplate);
+//        return sessionDao;
+//    }
 
     @Bean
     public SessionManager sessionManager(RedisSessionDAO redisSessionDAO) {

@@ -6,7 +6,7 @@ package com.springboot.demo.common.base;
 public class ApiBaseResponse<T> {
 
     public static final Integer SUCCESS_CODE = 1;
-    public static final Integer FAILURE_CODE = 0;
+    public static final Integer FAILURE_CODE = -1;
 
     public static final String SUCCESS_MESSAGE = "请求成功";
     public static final String FAILURE_MESSAGE = "请求失败";

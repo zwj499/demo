@@ -1,6 +1,6 @@
 package com.springboot.demo.service.sys;
 
-import com.springboot.demo.common.base.BaseService;
+import com.springboot.demo.service.base.BaseService;
 import com.springboot.demo.entity.sys.SysPermission;
 import com.springboot.demo.mapper.sys.SysPermissionMapper;
 import org.springframework.stereotype.Service;

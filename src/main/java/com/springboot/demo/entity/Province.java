@@ -2,9 +2,13 @@ package com.springboot.demo.entity;
 
 import com.springboot.demo.entity.base.BaseEntity;
 
-public class Dungeons extends BaseEntity {
+/**
+ * @author zwj * @since 1.0
+ */
+public class Province extends BaseEntity {
+
     private String name;
-    private String description;
+    private String wm;
 
     public String getName() {
         return name;
@@ -14,11 +18,11 @@ public class Dungeons extends BaseEntity {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getWm() {
+        return wm;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWm(String wm) {
+        this.wm = wm;
     }
 }

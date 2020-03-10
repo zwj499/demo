@@ -1,4 +1,4 @@
-package com.springboot.demo.common.base;
+package com.springboot.demo.entity.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

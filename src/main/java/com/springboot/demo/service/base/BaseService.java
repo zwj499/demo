@@ -1,7 +1,11 @@
-package com.springboot.demo.common.base;
+package com.springboot.demo.service.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.springboot.demo.common.base.ApiBaseResponse;
+import com.springboot.demo.entity.base.BaseEntity;
+import com.springboot.demo.common.base.ServiceException;
+import com.springboot.demo.mapper.base.BaseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +28,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.selectById(id);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "查询失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "查询失败");
         }
     }
 
@@ -32,7 +36,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return (List<T>) baseMapper.selectAll(tableName);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "批量删除失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "查询失败");
         }
     }
 
@@ -40,7 +44,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.selectBatchIds(ids);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "查询失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "查询失败");
         }
     }
 
@@ -48,7 +52,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.insert(entity);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "添加失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "添加失败");
         }
     }
 
@@ -56,7 +60,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.updateById(entity);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "更新数据失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "更新数据失败");
         }
     }
 
@@ -64,7 +68,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.deleteById(id);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "删除失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "删除失败");
         }
     }
 
@@ -72,7 +76,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
         try{
             return baseMapper.deleteBatchIds(ids);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "批量删除失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "批量删除失败");
         }
     }
 
@@ -81,7 +85,7 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
             Wrapper<T> wrapper = new QueryWrapper<T>().eq("name", name);
             return baseMapper.selectOne(wrapper);
         } catch (ServiceException e) {
-            throw new ServiceException(1, "批量删除失败");
+            throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "批量删除失败");
         }
     }
 }

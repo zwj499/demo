@@ -1,8 +1,7 @@
 package com.springboot.demo.controller.sys;
 
 import com.springboot.demo.common.base.ApiBaseResponse;
-import com.springboot.demo.common.base.AbstractController;
-import com.springboot.demo.common.base.BaseController;
+import com.springboot.demo.controller.base.BaseController;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;

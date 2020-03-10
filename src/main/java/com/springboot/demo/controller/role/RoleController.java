@@ -1,18 +1,17 @@
 package com.springboot.demo.controller.role;
 
 import com.springboot.demo.common.base.ApiBaseResponse;
-import com.springboot.demo.common.base.AbstractController;
+import com.springboot.demo.controller.base.AbstractController;
 import com.springboot.demo.controller.role.request.CreateRoleRequest;
 import com.springboot.demo.controller.role.request.UpdateRoleRequest;
 import com.springboot.demo.entity.Role;
 import com.springboot.demo.mapper.RoleMapper;
-import com.springboot.demo.service.RoleService;
+import com.springboot.demo.service.role.RoleService;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.Duration;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ public class RoleController extends AbstractController<Role, RoleMapper, RoleSer
 
     @GetMapping("/list")
     public ApiBaseResponse<List<Role>> selectAll() {
-        return super.selectAll("role");
+        return super.selectAll();
     }
 
     @PostMapping

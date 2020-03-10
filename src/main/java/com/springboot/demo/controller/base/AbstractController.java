@@ -1,9 +1,14 @@
-package com.springboot.demo.common.base;
+package com.springboot.demo.controller.base;
 
+import com.springboot.demo.common.base.*;
+import com.springboot.demo.entity.base.BaseEntity;
+import com.springboot.demo.mapper.base.BaseMapper;
+import com.springboot.demo.service.base.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -37,13 +42,19 @@ public class AbstractController<T extends BaseEntity, M extends BaseMapper<T>, S
         }
     }
 
-    protected ApiBaseResponse<List<T>> selectAll(String tableName) {
+    protected ApiBaseResponse<List<T>> selectAll() {
         try {
-            List<T> result = service.selectAll(tableName);
+            ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
+            String className = type.getActualTypeArguments()[0].getTypeName();
+            Class<T> tClass = (Class<T>) Class.forName(className);
+            List<T> result = service.selectAll(tClass.getSimpleName());
             return setResponseSuccess(result);
         } catch (ServiceException e) {
             logger.error(e.getMessage(), e);
             return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure();
         }
     }
 

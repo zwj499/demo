@@ -1,4 +1,6 @@
-package com.springboot.demo.common.base;
+package com.springboot.demo.controller.base;
+
+import com.springboot.demo.common.base.ApiBaseResponse;
 
 /**
  * @author zwj * @since 1.0

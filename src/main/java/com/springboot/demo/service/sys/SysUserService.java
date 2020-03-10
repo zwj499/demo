@@ -3,7 +3,7 @@ package com.springboot.demo.service.sys;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.springboot.demo.common.base.BaseService;
+import com.springboot.demo.service.base.BaseService;
 import com.springboot.demo.controller.sys.request.SelectSysUserPageRequest;
 import com.springboot.demo.controller.sys.response.SelectSysUserPageResponse;
 import com.springboot.demo.entity.sys.SysUser;

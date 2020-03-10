@@ -1,6 +1,6 @@
-package com.springboot.demo.service;
+package com.springboot.demo.service.role;
 
-import com.springboot.demo.common.base.BaseService;
+import com.springboot.demo.service.base.BaseService;
 import com.springboot.demo.entity.Role;
 import com.springboot.demo.mapper.RoleMapper;
 import org.springframework.stereotype.Service;

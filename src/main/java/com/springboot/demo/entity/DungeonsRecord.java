@@ -1,6 +1,6 @@
 package com.springboot.demo.entity;
 
-import com.springboot.demo.common.base.BaseEntity;
+import com.springboot.demo.entity.base.BaseEntity;
 
 public class DungeonsRecord extends BaseEntity {
 

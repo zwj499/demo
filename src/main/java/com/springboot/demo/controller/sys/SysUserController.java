@@ -1,9 +1,8 @@
 package com.springboot.demo.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.base.ApiBaseResponse;
-import com.springboot.demo.common.base.AbstractController;
+import com.springboot.demo.controller.base.AbstractController;
 import com.springboot.demo.controller.sys.request.SelectSysUserPageRequest;
 import com.springboot.demo.controller.sys.response.SelectSysUserPageResponse;
 import com.springboot.demo.entity.sys.SysUser;

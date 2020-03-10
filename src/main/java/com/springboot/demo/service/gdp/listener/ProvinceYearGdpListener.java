@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -21,10 +22,11 @@ public class ProvinceYearGdpListener extends AnalysisEventListener<Map<Integer, 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
     private MongoTemplate mongoTemplate;
 
-    private static final int BATCH_COUNT = 100;
+    public ProvinceYearGdpListener(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     List<ProvinceYearGdp> list = new ArrayList<>();
 
@@ -36,19 +38,19 @@ public class ProvinceYearGdpListener extends AnalysisEventListener<Map<Integer, 
             head.putAll(data);
         } else {
             loadProvinces(data);
-            if (list.size() > BATCH_COUNT) {
-                save();
-                list.clear();
-            }
+//            if (list.size() > BATCH_COUNT) {
+//                save();
+//                list.clear();
+//            }
         }
     }
 
     private void loadProvinces(Map<Integer, String> data) {
         if (MapUtils.isEmpty(data))
             return;
-        String province = data.get(1);
+        String province = data.get(0);
         // todo 校验 省份信息 。。。if (province) ...
-        data.remove(1);
+        data.remove(0);
         for (Map.Entry entry : data.entrySet()) {
             ProvinceYearGdp pyg = buildProvince(province, entry);
             if (pyg != null)
