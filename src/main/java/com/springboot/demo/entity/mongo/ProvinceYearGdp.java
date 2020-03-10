@@ -10,7 +10,7 @@ public class ProvinceYearGdp {
     private String province;
     private Integer year;
     private Double value;
-    private String unit = "万亿";
+    private String unit = "亿";
 
     public String getProvince() {
         return province;

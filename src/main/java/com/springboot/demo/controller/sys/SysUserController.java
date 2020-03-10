@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author zwj * @since 1.0
  */
 @RestController
-@RequestMapping("/sys_user")
+@RequestMapping("/sysUser")
 public class SysUserController extends AbstractController<SysUser, SysUserMapper, SysUserService> {
 
     @GetMapping("/selectByName")

@@ -40,9 +40,13 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("/unLogin")
+    public String unLogin() {
+        return "为登录";
+    }
+
+    @GetMapping("/error")
     public String error() {
         return "无权限";
     }
-
 
 }
