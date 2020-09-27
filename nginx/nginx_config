@@ -1,6 +1,6 @@
 #user  nobody;
 worker_processes  1;
-error_log  logs/dnf-play/error.log;
+error_log  logs/demo/error.log;
 
 events {
   worker_connections  1024;

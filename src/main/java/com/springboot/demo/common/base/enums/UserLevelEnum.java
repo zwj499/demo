@@ -1,5 +1,6 @@
 package com.springboot.demo.common.base.enums;
 
+
 import java.util.Arrays;
 
 public enum UserLevelEnum {

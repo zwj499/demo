@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zwj * @since 1.0
  */
 @RestController
-@RequestMapping("/sys_permission")
+@RequestMapping("/sysPermission")
 public class SysPermissionController {
 
 }

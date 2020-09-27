@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.List;
 
 /**
@@ -19,11 +20,8 @@ import java.util.List;
 @RequestMapping("/test")
 public class TestController {
 
-    private final StringRedisTemplate stringRedisTemplate;
-
-    public TestController(StringRedisTemplate stringRedisTemplate) {
-        this.stringRedisTemplate = stringRedisTemplate;
-    }
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -34,46 +32,15 @@ public class TestController {
         return "ok";
     }
 
-    @GetMapping("get")
+    @GetMapping("/get")
     public String set(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }
 
-    @GetMapping("/mongo")
-    public TT setMongo() {
-        TT tt = new TT("as", "good");
-        return mongoTemplate.save(tt, "sys_user");
+    @GetMapping("/test")
+    public String test() {
+        return "test";
     }
 
-    @GetMapping("/mongoget")
-    public List<TT> sgtMongo() {
-        return mongoTemplate.findAll(TT.class, "sys_user");
-    }
 
-}
-
-class TT {
-    private String name;
-    private String description;
-
-    public TT(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

@@ -2,7 +2,6 @@ package com.springboot.demo.config;
 
 import com.springboot.demo.common.constant.RedisConstant;
 import com.springboot.demo.common.properties.ShiroProperties;
-import com.springboot.demo.common.serializer.ShiroRedisSessionDao;
 import com.springboot.demo.common.shiro.SysUserRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -18,7 +17,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.ReflectionUtils;
 import redis.clients.jedis.JedisPool;
 
@@ -126,6 +124,7 @@ public class ShiroConfig {
 
         Map<String, String> filter = new LinkedHashMap<String, String>();
         filter.put("/", "anon");
+        filter.put("/test/**", "anon");
         filter.put("/login", "anon");
         filter.put("/**", "authc");
 

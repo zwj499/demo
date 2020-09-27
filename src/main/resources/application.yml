@@ -33,6 +33,5 @@ logging:
       springboot:
         demo:
           mapper: debug
-
 shiro:
   enabled: false

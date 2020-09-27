@@ -1,6 +1,7 @@
 package com.springboot.demo.controller.base;
 
-import com.springboot.demo.common.base.*;
+import com.springboot.demo.common.base.ApiBaseResponse;
+import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.entity.base.BaseEntity;
 import com.springboot.demo.mapper.base.BaseMapper;
 import com.springboot.demo.service.base.BaseService;
