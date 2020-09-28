@@ -19,4 +19,6 @@ public class RedisConstant {
 
     public static final String KEY_PREFIX_SESSION = "Demo#Session";
     public static final String KEY_PREFIX_SHIRO_SESSION = KEY_PREFIX_SESSION + "shiro-sessionId:";
+
+    public static final String CURRENT_USER = "currentUser";
 }

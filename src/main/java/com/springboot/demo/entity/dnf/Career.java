@@ -4,6 +4,7 @@ import com.springboot.demo.entity.base.BaseEntity;
 
 public class Career extends BaseEntity {
 
+    private static final long serialVersionUID = 1756165181050409403L;
     private Integer baseCareer;
     private String career;
 

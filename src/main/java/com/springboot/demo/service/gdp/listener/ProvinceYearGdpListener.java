@@ -7,6 +7,7 @@ import com.springboot.demo.common.constant.CollectionPreDefinition;
 import com.springboot.demo.entity.mongo.ProvinceYearGdp;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -29,7 +30,7 @@ public class ProvinceYearGdpListener extends AnalysisEventListener<Map<Integer, 
         this.mongoTemplate = mongoTemplate;
     }
 
-    List<ProvinceYearGdp> list = new ArrayList<>();
+    List<ProvinceYearGdp> list = Lists.newArrayList();
 
     Map<Integer, String> head = new HashMap<>();
 

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.springboot.demo.mapper.RoleMapper">
+<mapper namespace="com.springboot.demo.mapper.dnf.RoleMapper">
 
-    <resultMap id="BaseResultMap" type="com.springboot.demo.entity.Role">
+    <resultMap id="BaseResultMap" type="com.springboot.demo.entity.dnf.Role">
+        <result column="account_id" property="accountId"/>
         <result column="name" property="name"/>
+        <result column="level" property="level"/>
         <result column="career" property="career"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 </mapper>

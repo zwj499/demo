@@ -14,9 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/dnf/career")
 public class CareerController extends AbstractController<Career, CareerMapper, CareerService> {
 
+    @GetMapping("/tree")
+    public ApiBaseResponse tree() {
+        try {
+            return setResponseSuccess(service.queryCareerTree());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure();
+        }
+    }
+
     @GetMapping("/list")
     public ApiBaseResponse selectAll() {
-        return this.selectAll();
+        return super.selectAll();
     }
 
     @GetMapping("/baseCareer")

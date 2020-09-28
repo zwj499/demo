@@ -6,6 +6,8 @@ import com.springboot.demo.common.base.ApiBaseResponse;
 import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.entity.base.BaseEntity;
 import com.springboot.demo.mapper.base.BaseMapper;
+import org.apache.commons.collections4.CollectionUtils;
+import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,8 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
 
     public List<T> selectBatchIds(Collection<Integer> ids) {
         try {
+            if (CollectionUtils.isEmpty(ids))
+                return Lists.newArrayList();
             return baseMapper.selectBatchIds(ids);
         } catch (ServiceException e) {
             throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "查询失败");
