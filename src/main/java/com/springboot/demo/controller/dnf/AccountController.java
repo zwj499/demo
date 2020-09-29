@@ -5,11 +5,8 @@ import com.springboot.demo.controller.base.AbstractController;
 import com.springboot.demo.controller.dnf.request.CreateAccountRequest;
 import com.springboot.demo.controller.dnf.request.SelectAccountPageRequest;
 import com.springboot.demo.entity.dnf.Account;
-import com.springboot.demo.entity.sys.SysUser;
 import com.springboot.demo.mapper.dnf.AccountMapper;
 import com.springboot.demo.service.dnf.AccountService;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,7 +34,7 @@ public class AccountController extends AbstractController<Account, AccountMapper
     @PostMapping
     public ApiBaseResponse insert(@RequestBody CreateAccountRequest request) {
         try {
-            super.insert(request.buildAccount(currentUser()));
+            super.insert(request.adapt(currentUser()));
             return setResponseSuccess();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

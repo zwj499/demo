@@ -43,4 +43,16 @@ public class AccountService extends BaseService<Account, AccountMapper> {
         return result;
     }
 
+    /**
+     * 获取当前用户下的所有账号
+     *
+     * @param userId
+     * @return
+     */
+    public List<Account> getByCurrentUser(Integer userId) {
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("sys_user_id", userId);
+        return baseMapper.selectList(queryWrapper);
+    }
+
 }

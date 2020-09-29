@@ -58,7 +58,7 @@ public class CareerService extends BaseService<Career, CareerMapper> {
      * @return
      */
     public List<Career> queryCareersByBaseCareerId(Integer baseCareerId) {
-        Wrapper<Career> wrapper = new QueryWrapper<Career>().eq("baseCareer", baseCareerId);
+        Wrapper<Career> wrapper = new QueryWrapper<Career>().eq("base_career", baseCareerId);
         return baseMapper.selectList(wrapper);
     }
 

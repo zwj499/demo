@@ -2,11 +2,14 @@ package com.springboot.demo.service.base;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.base.ApiBaseResponse;
 import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.entity.base.BaseEntity;
 import com.springboot.demo.mapper.base.BaseMapper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
+
+import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
  * @author zwj * @since 1.0

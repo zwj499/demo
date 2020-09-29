@@ -14,7 +14,7 @@ public class CreateRoleRequest {
     private Integer level;
     private String career;
 
-    public Role buildRole() {
+    public Role adapt() {
         Role role = new Role();
         role.setAccountId(this.accountId);
         role.setName(this.name);

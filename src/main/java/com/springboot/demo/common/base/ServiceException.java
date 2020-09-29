@@ -11,6 +11,11 @@ public class ServiceException extends RuntimeException {
     public ServiceException() {
     }
 
+    public ServiceException(String errorMessage) {
+        this.errorCode = -1;
+        this.errorMessage = errorMessage;
+    }
+
     public ServiceException(Integer errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;

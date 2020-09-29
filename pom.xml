@@ -126,7 +126,6 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

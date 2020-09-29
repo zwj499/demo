@@ -7,6 +7,7 @@ import com.springboot.demo.controller.dnf.request.SelectRolePageRequest;
 import com.springboot.demo.controller.dnf.response.SelectRolePageResponse;
 import com.springboot.demo.entity.dnf.Account;
 import com.springboot.demo.entity.dnf.Role;
+import com.springboot.demo.entity.sys.SysUser;
 import com.springboot.demo.mapper.dnf.RoleMapper;
 import com.springboot.demo.service.base.BaseService;
 import org.apache.commons.lang3.StringUtils;
@@ -55,4 +56,11 @@ public class RoleService extends BaseService<Role, RoleMapper> {
         return result;
     }
 
+    public List<Role> getRoles(SysUser currentUser) {
+        List<Account> accounts = accountService.getByCurrentUser(currentUser.getId());
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
+        List<Integer> accountIds = accounts.stream().map(Account::getId).collect(Collectors.toList());
+        queryWrapper.in("account_id", accountIds);
+        return baseMapper.selectList(queryWrapper);
+    }
 }

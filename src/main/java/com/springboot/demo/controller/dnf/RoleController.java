@@ -7,10 +7,7 @@ import com.springboot.demo.controller.dnf.request.SelectRolePageRequest;
 import com.springboot.demo.entity.dnf.Role;
 import com.springboot.demo.mapper.dnf.RoleMapper;
 import com.springboot.demo.service.dnf.RoleService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zwj * @since 1.0
@@ -32,8 +29,18 @@ public class RoleController extends AbstractController<Role, RoleMapper, RoleSer
     @PostMapping
     public ApiBaseResponse insert(@RequestBody CreateRoleRequest request) {
         try {
-            super.insert(request.buildRole());
+            super.insert(request.adapt());
             return setResponseSuccess();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure();
+        }
+    }
+
+    @GetMapping
+    public ApiBaseResponse getRoles() {
+        try {
+            return setResponseSuccess(service.getRoles(currentUser()));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return setResponseFailure();

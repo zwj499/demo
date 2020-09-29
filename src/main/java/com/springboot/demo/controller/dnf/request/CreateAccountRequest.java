@@ -12,7 +12,7 @@ public class CreateAccountRequest {
 
     private String account;
 
-    public Account buildAccount(SysUser sysUser) {
+    public Account adapt(SysUser sysUser) {
         Account account = new Account();
         account.setAccount(this.account);
         account.setCreateTime(Calendar.getInstance().getTimeInMillis());
