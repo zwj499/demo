@@ -9,14 +9,10 @@ import com.springboot.demo.entity.dnf.Damage;
 import com.springboot.demo.mapper.dnf.DamageMapper;
 import com.springboot.demo.service.dnf.DamageService;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
-import org.assertj.core.util.Maps;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**

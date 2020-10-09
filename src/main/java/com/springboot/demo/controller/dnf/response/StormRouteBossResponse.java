@@ -1,11 +1,13 @@
-package com.springboot.demo.entity.dnf;
+package com.springboot.demo.controller.dnf.response;
 
-import com.springboot.demo.entity.base.BaseEntity;
-
-public class StormRouteBoss extends BaseEntity {
+/**
+ * @author zwj * @since 1.0
+ */
+public class StormRouteBossResponse {
 
     private String firstBoss;
     private String secondBoss;
+    private String stormRouteName;
 
     public String getFirstBoss() {
         return firstBoss;
@@ -21,5 +23,13 @@ public class StormRouteBoss extends BaseEntity {
 
     public void setSecondBoss(String secondBoss) {
         this.secondBoss = secondBoss;
+    }
+
+    public String getStormRouteName() {
+        return stormRouteName;
+    }
+
+    public void setStormRouteName(String stormRouteName) {
+        this.stormRouteName = stormRouteName;
     }
 }
