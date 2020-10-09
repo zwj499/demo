@@ -47,7 +47,8 @@ public class DamageService extends BaseService<Damage, DamageMapper> {
             baseMapper.insert(request.adapt());
         else if (damage.getDamage() < request.getDamage()) {
             damage.setUpdateTime(Calendar.getInstance().getTimeInMillis());
-            baseMapper.updateById(damage);
+            damage.setDamage(request.getDamage());
+             baseMapper.updateById(damage);
         }
     }
 
