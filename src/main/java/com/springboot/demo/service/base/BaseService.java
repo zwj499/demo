@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Collection;
 import java.util.List;
 
-import static com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline;
 
 /**
  * @author zwj * @since 1.0
@@ -95,6 +94,26 @@ public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> {
             return baseMapper.selectOne(wrapper);
         } catch (ServiceException e) {
             throw new ServiceException(ApiBaseResponse.FAILURE_CODE, "批量删除失败");
+        }
+    }
+
+    public static String camelToUnderline(String param) {
+        if (StringUtils.isEmpty(param)) {
+            return "";
+        } else {
+            int len = param.length();
+            StringBuilder sb = new StringBuilder(len);
+
+            for(int i = 0; i < len; ++i) {
+                char c = param.charAt(i);
+                if (Character.isUpperCase(c) && i > 0) {
+                    sb.append('_');
+                }
+
+                sb.append(Character.toLowerCase(c));
+            }
+
+            return sb.toString();
         }
     }
 }

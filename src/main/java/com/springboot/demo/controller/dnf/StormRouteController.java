@@ -4,6 +4,7 @@ import com.springboot.demo.common.base.ApiBaseResponse;
 import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.controller.base.AbstractController;
 import com.springboot.demo.controller.dnf.enums.StormRouteBossEnum;
+import com.springboot.demo.controller.dnf.request.ComprehensiveAnalysisRequest;
 import com.springboot.demo.controller.dnf.request.CreateStormRouteRequest;
 import com.springboot.demo.controller.dnf.request.SelectStormRoutePageRequest;
 import com.springboot.demo.entity.dnf.StormRoute;
@@ -27,6 +28,19 @@ public class StormRouteController extends AbstractController<StormRoute, StormRo
     public ApiBaseResponse selectPage(@RequestBody SelectStormRoutePageRequest request) {
         try {
             return setResponseSuccess(service.selectPage(request));
+        } catch (ServiceException e) {
+            logger.error(e.getErrorMessage(), e);
+            return setResponseFailure(e.getErrorCode(), e.getErrorMessage());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return setResponseFailure();
+        }
+    }
+
+    @PostMapping("/comprehensiveAnalysis")
+    public ApiBaseResponse comprehensiveAnalysis(@RequestBody ComprehensiveAnalysisRequest request) {
+        try {
+            return setResponseSuccess(service.comprehensiveAnalysis(request));
         } catch (ServiceException e) {
             logger.error(e.getErrorMessage(), e);
             return setResponseFailure(e.getErrorCode(), e.getErrorMessage());

@@ -89,9 +89,9 @@ public class SelectStormRoutePageResponse {
             throw new ServiceException("时间不能小于0");
         }
         if (seconds >= 60) {
-            sb.append(seconds / 60).append("分")
-                    .append(seconds % 60).append("秒");
+            sb.append(seconds / 60).append("分");
         }
+        sb.append(seconds % 60).append("秒");
         sb.append(passTime.toString().split("\\.")[1]);
         return sb.toString();
     }

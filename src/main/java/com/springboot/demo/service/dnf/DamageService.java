@@ -64,7 +64,7 @@ public class DamageService extends BaseService<Damage, DamageMapper> {
             queryWrapper.eq("duration", request.getDuration());
         }
 
-        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : request.getOrderBy();
+        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" :  camelToUnderline(request.getOrderBy());
         Boolean asc = request.getAsc() == null ? true : request.getAsc();
 
         queryWrapper.orderBy(true, asc, orderBy);

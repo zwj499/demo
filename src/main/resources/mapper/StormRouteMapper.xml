@@ -11,4 +11,29 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
+
+    <resultMap id="BaseResultMapComprehensiveAnalysis" type="com.springboot.demo.controller.dnf.response.ComprehensiveAnalysisResponse">
+        <result column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="max_pass_time" property="maxPassTime"/>
+        <result column="min_pass_time" property="minPassTime"/>
+        <result column="avg_pass_time" property="avgPassTime"/>
+    </resultMap>
+
+    <select id="comprehensiveAnalysis" parameterMap="com.springboot.demo.controller.dnf.request.ComprehensiveAnalysisRequest" resultType="com.springboot.demo.controller.dnf.response.ComprehensiveAnalysisResponse">
+        select
+        t1.role_id,t2.name role_name,avg(t1.pass_time) avg_pass_time,max(t1.pass_time) max_pass_time,min(t1.pass_time) min_pass_time
+        from storm_route t1 left join role t2 on t1.role_id = t2.id
+        group by t1.role_id
+
+<!--        <if test="orderBy != null and orderBy != ''">-->
+<!--            order by   CONVERT( ${orderBy} USING gbk ) COLLATE gbk_chinese_ci-->
+<!--        </if>-->
+<!--        <if test="asc == false">-->
+<!--            DESC-->
+<!--        </if>-->
+<!--        <if test="asc == true">-->
+<!--            ASC-->
+<!--        </if>-->
+    </select>
 </mapper>

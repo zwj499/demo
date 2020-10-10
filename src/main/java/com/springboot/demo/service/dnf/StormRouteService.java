@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.base.ServiceException;
+import com.springboot.demo.common.utils.PageUtils;
+import com.springboot.demo.controller.dnf.request.ComprehensiveAnalysisRequest;
 import com.springboot.demo.controller.dnf.request.CreateStormRouteRequest;
 import com.springboot.demo.controller.dnf.request.SelectStormRoutePageRequest;
+import com.springboot.demo.controller.dnf.response.ComprehensiveAnalysisResponse;
 import com.springboot.demo.controller.dnf.response.SelectStormRoutePageResponse;
 import com.springboot.demo.entity.dnf.Role;
 import com.springboot.demo.entity.dnf.StormRoute;
@@ -48,7 +51,7 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
         Double passTime = request.getMinute() * 60 + request.getSecond() + request.getMillisecond() / 100;
         if (stormRoute == null)
             baseMapper.insert(request.adapt());
-        else if (stormRoute.getPassTime() < passTime) {
+        else if (stormRoute.getPassTime() > passTime) {
             stormRoute.setUpdateTime(Calendar.getInstance().getTimeInMillis());
             stormRoute.setPassTime(passTime);
             baseMapper.updateById(stormRoute);
@@ -60,14 +63,20 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
 
         QueryWrapper<StormRoute> queryWrapper = new QueryWrapper<>();
 
-        if (StringUtils.isNotBlank(request.getFirstBoss())) {
-            queryWrapper.eq("first_boss", request.getFirstBoss());
-        }
-        if (StringUtils.isNotBlank(request.getSecondBoss())) {
-            queryWrapper.eq("second_boss", request.getSecondBoss());
+        if (StringUtils.equals("map", request.getAnalysisType())) {
+            if (StringUtils.isNotBlank(request.getFirstBoss())) {
+                queryWrapper.eq("first_boss", request.getFirstBoss());
+            }
+            if (StringUtils.isNotBlank(request.getSecondBoss())) {
+                queryWrapper.eq("second_boss", request.getSecondBoss());
+            }
+        } else if (StringUtils.equals("role", request.getAnalysisType())) {
+            if (request.getRoleId() != null) {
+                queryWrapper.eq("role_id", request.getRoleId());
+            }
         }
 
-        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : request.getOrderBy();
+        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : camelToUnderline(request.getOrderBy());
         Boolean asc = request.getAsc() == null ? true : request.getAsc();
 
         queryWrapper.orderBy(true, asc, orderBy);
@@ -86,5 +95,19 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
         result.setRecords(stormRouteResponses);
 
         return result;
+    }
+
+    public Page<ComprehensiveAnalysisResponse> comprehensiveAnalysis(ComprehensiveAnalysisRequest request) {
+        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : camelToUnderline(request.getOrderBy());
+        Boolean asc = request.getAsc() == null ? true : request.getAsc();
+        request.setOrderBy(orderBy);
+        request.setAsc(asc);
+
+        List<ComprehensiveAnalysisResponse> comprehensiveAnalysisResponses = baseMapper.comprehensiveAnalysis(request);
+        Page<ComprehensiveAnalysisResponse> page = new Page<>(request.getPageNo(), request.getPageSize(), comprehensiveAnalysisResponses.size());
+
+        PageUtils.doPage(page, comprehensiveAnalysisResponses);
+
+        return page;
     }
 }

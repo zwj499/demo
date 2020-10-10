@@ -30,7 +30,7 @@ public class SysUserService extends BaseService<SysUser, SysUserMapper> {
             queryWrapper.like("name", request.getName());
         }
 
-        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : request.getOrderBy();
+        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : camelToUnderline(request.getOrderBy());
         Boolean asc = request.getAsc() == null ? true : request.getAsc();
 
         queryWrapper.orderBy(true, asc, orderBy);
