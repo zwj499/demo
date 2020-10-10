@@ -24,7 +24,7 @@ spring:
 
 
 mybatis:
-  mapper-locations: mapper
+  mapper-locations: mapper,com/springboot/demo/mapper/dnf
   type-aliases-package: com.springboot.demo.entity,com.springboot.demo.entity.*
 
 logging:
