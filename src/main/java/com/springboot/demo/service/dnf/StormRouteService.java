@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.common.utils.PageUtils;
+import com.springboot.demo.common.utils.TimeParseUtil;
 import com.springboot.demo.controller.dnf.request.ComprehensiveAnalysisRequest;
 import com.springboot.demo.controller.dnf.request.CreateStormRouteRequest;
 import com.springboot.demo.controller.dnf.request.SelectStormRoutePageRequest;
@@ -98,7 +99,7 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
     }
 
     public Page<ComprehensiveAnalysisResponse> comprehensiveAnalysis(ComprehensiveAnalysisRequest request) {
-        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : camelToUnderline(request.getOrderBy());
+        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "avg_pass_time" : camelToUnderline(request.getOrderBy());
         Boolean asc = request.getAsc() == null ? true : request.getAsc();
         request.setOrderBy(orderBy);
         request.setAsc(asc);
@@ -107,6 +108,11 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
         Page<ComprehensiveAnalysisResponse> page = new Page<>(request.getPageNo(), request.getPageSize(), comprehensiveAnalysisResponses.size());
 
         PageUtils.doPage(page, comprehensiveAnalysisResponses);
+        page.getRecords().forEach(x -> {
+            x.setAvgPassTimeString(TimeParseUtil.parsePassTime(x.getAvgPassTime()));
+            x.setMaxPassTimeString(TimeParseUtil.parsePassTime(x.getMaxPassTime()));
+            x.setMinPassTimeString(TimeParseUtil.parsePassTime(x.getMinPassTime()));
+        });
 
         return page;
     }

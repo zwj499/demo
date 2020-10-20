@@ -11,12 +11,12 @@ public class SelectAccountPageResponse {
     private Integer id;
     private String account;
     private Long createTime;
-    private Integer roleCount = 0;
+    private Integer roleCount;
 
-    public SelectAccountPageResponse accept(Account account) {
-        BeanUtils.copyProperties(account, this);
-        return this;
-    }
+//    public SelectAccountPageResponse accept(Account account) {
+//        BeanUtils.copyProperties(account, this);
+//        return this;
+//    }
 
     public Integer getId() {
         return id;

@@ -27,18 +27,7 @@ public class AccountService extends BaseService<Account, AccountMapper> {
             queryWrapper.like("account", request.getSearchText());
         }
 
-        String orderBy = StringUtils.isBlank(request.getOrderBy()) ? "id" : camelToUnderline(request.getOrderBy());
-        Boolean asc = request.getAsc() == null ? true : request.getAsc();
-
-        queryWrapper.orderBy(true, asc, orderBy);
-
-        IPage<Account> accountPage = baseMapper.selectPage(page, queryWrapper);
-
-        List<SelectAccountPageResponse> accountResponse = accountPage.getRecords().stream().map(account -> new SelectAccountPageResponse().accept(account)).collect(Collectors.toList());
-
-        IPage<SelectAccountPageResponse> result = new Page<>();
-        BeanUtils.copyProperties(accountPage, result, "records");
-        result.setRecords(accountResponse);
+        IPage<SelectAccountPageResponse> result = baseMapper.selectPage(page);
 
         return result;
     }

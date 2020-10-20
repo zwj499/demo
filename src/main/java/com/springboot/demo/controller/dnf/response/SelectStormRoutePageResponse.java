@@ -1,6 +1,7 @@
 package com.springboot.demo.controller.dnf.response;
 
 import com.springboot.demo.common.base.ServiceException;
+import com.springboot.demo.common.utils.TimeParseUtil;
 import com.springboot.demo.entity.dnf.StormRoute;
 import org.springframework.beans.BeanUtils;
 
@@ -22,7 +23,7 @@ public class SelectStormRoutePageResponse {
     public SelectStormRoutePageResponse accept(StormRoute stormRoute, Map<Integer, String> roleMap) {
         BeanUtils.copyProperties(stormRoute, this);
         this.roleName = roleMap.get(stormRoute.getRoleId());
-        this.passTimeString = parsePassTime(stormRoute.getPassTime());
+        this.passTimeString = TimeParseUtil.parsePassTime(stormRoute.getPassTime());
         return this;
     }
 
@@ -80,19 +81,5 @@ public class SelectStormRoutePageResponse {
 
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
-    }
-
-    private String parsePassTime(Double passTime) {
-        StringBuilder sb = new StringBuilder();
-        Integer seconds = passTime.intValue();
-        if (seconds < 0) {
-            throw new ServiceException("时间不能小于0");
-        }
-        if (seconds >= 60) {
-            sb.append(seconds / 60).append("分");
-        }
-        sb.append(seconds % 60).append("秒");
-        sb.append(passTime.toString().split("\\.")[1]);
-        return sb.toString();
     }
 }

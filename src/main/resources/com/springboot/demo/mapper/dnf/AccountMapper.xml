@@ -8,4 +8,10 @@
         <result column="create_time" property="createTime"/>
         <result column="sys_user_id" property="sysUserId"/>
     </resultMap>
+
+    <select id="selectPage" resultType="com.springboot.demo.controller.dnf.response.SelectAccountPageResponse">
+        SELECT a.account, a.create_time, r.roleCount FROM demo.account a left join (
+	            select account_id, count(account_id) roleCount from demo.role group by account_id
+            ) r on a.id = r.account_id
+    </select>
 </mapper>
