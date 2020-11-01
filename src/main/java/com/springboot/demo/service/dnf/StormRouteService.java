@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -109,11 +110,15 @@ public class StormRouteService extends BaseService<StormRoute, StormRouteMapper>
 
         PageUtils.doPage(page, comprehensiveAnalysisResponses);
         page.getRecords().forEach(x -> {
-            x.setAvgPassTimeString(TimeParseUtil.parsePassTime(x.getAvgPassTime()));
+            x.setAvgPassTimeString(TimeParseUtil.parsePassTime(setScale(x.getAvgPassTime())));
             x.setMaxPassTimeString(TimeParseUtil.parsePassTime(x.getMaxPassTime()));
             x.setMinPassTimeString(TimeParseUtil.parsePassTime(x.getMinPassTime()));
         });
 
         return page;
+    }
+
+    private Double setScale(Double value) {
+        return new BigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }
