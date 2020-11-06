@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/dnf/damage")
 public class DamageController extends AbstractController<Damage, DamageMapper, DamageService> {
 
-    @GetMapping("/list")
-    public ApiBaseResponse selectAll() {
-        return super.selectAll();
-    }
+//    @GetMapping("/list")
+//    public ApiBaseResponse selectAll() {
+//        return super.selectAll();
+//    }
 
     @PostMapping("/selectPage")
     public ApiBaseResponse selectPage(@RequestBody SelectDamagePageRequest request) {
@@ -66,6 +66,16 @@ public class DamageController extends AbstractController<Damage, DamageMapper, D
             }
             return setResponseSuccess(MonsterEnum.fromMonster(monster).getDurationList());
         } catch (Exception e) {
+            return setResponseFailure();
+        }
+    }
+
+    @GetMapping("/list")
+    public ApiBaseResponse listDamage() {
+        try {
+            return setResponseSuccess(service.listDamageResponse());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
             return setResponseFailure();
         }
     }

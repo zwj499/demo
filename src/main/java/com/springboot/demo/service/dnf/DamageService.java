@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.springboot.demo.common.base.ServiceException;
 import com.springboot.demo.controller.dnf.request.CreateDamageRequest;
 import com.springboot.demo.controller.dnf.request.SelectDamagePageRequest;
+import com.springboot.demo.controller.dnf.response.ListDamageResponse;
 import com.springboot.demo.controller.dnf.response.SelectDamagePageResponse;
 import com.springboot.demo.entity.dnf.Account;
 import com.springboot.demo.entity.dnf.Damage;
@@ -21,6 +22,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +30,8 @@ public class DamageService extends BaseService<Damage, DamageMapper> {
 
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private AccountService accountService;
 
     public void saveOrUpdate(CreateDamageRequest request) {
         if (StringUtils.isEmpty(request.getMonster())
@@ -83,5 +87,28 @@ public class DamageService extends BaseService<Damage, DamageMapper> {
         result.setRecords(damageResponses);
 
         return result;
+    }
+
+    public List<ListDamageResponse> listDamageResponse() {
+
+        QueryWrapper<Damage> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.eq("duration", "20s");
+
+        queryWrapper.orderBy(true, true, "damage");
+
+        List<Damage> damages = baseMapper.selectList(queryWrapper);
+
+        Set<Integer> roleIds = damages.stream().map(Damage::getRoleId).collect(Collectors.toSet());
+
+        List<Role> roles = roleService.selectBatchIds(roleIds);
+        Map<Integer, Role> roleMap = roles.stream().collect(Collectors.toMap(Role::getId, Function.identity()));
+
+        Set<Integer> accountIds = roles.stream().map(Role::getAccountId).collect(Collectors.toSet());
+        List<Account> accounts = accountService.selectBatchIds(accountIds);
+        Map<Integer, Account> accountMap = accounts.stream().collect(Collectors.toMap(Account::getId, Function.identity()));
+
+        List<ListDamageResponse> listDamageResponses = damages.stream().map(damage -> new ListDamageResponse().accept(damage, roleMap, accountMap)).collect(Collectors.toList());
+        return listDamageResponses;
     }
 }
