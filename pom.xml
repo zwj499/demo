@@ -19,7 +19,7 @@
         <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.1.1</mybatis-plus-boot-starter.version>
         <mybatis-plus.version>3.1.1</mybatis-plus.version>
-        <shiro-spring-boot-starter.version>1.5.1</shiro-spring-boot-starter.version>
+        <shiro-spring-boot-starter.version>1.7.1</shiro-spring-boot-starter.version>
         <shiro-redis.version>3.2.3</shiro-redis.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <fastjson.version>1.2.66</fastjson.version>
