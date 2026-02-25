@@ -24,7 +24,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <fastjson.version>1.2.66</fastjson.version>
         <easyexcel.version>2.1.6</easyexcel.version>
-        <assertj-core.version>3.16.1</assertj-core.version>
+        <assertj-core.version>3.27.7</assertj-core.version>
     </properties>
 
     <dependencies>
